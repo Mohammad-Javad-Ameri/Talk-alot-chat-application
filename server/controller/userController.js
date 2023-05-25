@@ -37,7 +37,7 @@ const { name, email, password, picture } = req.body;
 
         const salt = await bcrypt.genSalt(Number(process.env.SALT))
         const hashPassword = await bcrypt.hash(password,salt)
-        const newUser=await new User({name,email,password:hashPassword,picture}).save();
+        await new User({name,email,password:hashPassword,picture}).save();
         res.status(201).send({ message: "User created successfully" })
 
     } catch (error) {
