@@ -3,7 +3,7 @@ const {login,logout} = require("../controller/authController");
 const authMiddleware = require("../middleware/jwtAuth");
 
 router.post("/login", login);
-router.put("/logout", authMiddleware, logout);
+router.post("/logout", logout);
 
 
 module.exports = router;
