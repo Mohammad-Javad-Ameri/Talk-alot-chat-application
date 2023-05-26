@@ -7,7 +7,7 @@ const userRoute = require("./routes/userRoute");
 const User = require("./models/userModel");
 const Message = require("./models/messageModel")
 const io = require("socket.io");
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 const app = express();
 

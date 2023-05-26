@@ -3,21 +3,27 @@ import {HiOutlineLogout} from "react-icons/hi"
 import {AiOutlineSetting} from "react-icons/ai"
 import {BsPerson} from "react-icons/bs"
 import { Link } from "react-router-dom";
+import { useLogoutUserMutation } from "../../services/appApi";
 
 
 const ProfileDropdown = () => {
   const [open, setOpen] = useState(false);
+   const [loginUser] = useLoginUserMutation();
 
-  const toggleDropdown = () => {
-    setOpen(!open);
-  };
-let user = false;
+   async function handleLogout(e) {
+        e.preventDefault();
+        await logoutUser(user);
+        window.location.replace("/");
+    }
+
+ 
+let user = true;
    if (!user) {
     return (
       
       <Link to="/login" class="py-1">
   
-<button className="btn btn-outline btn-warning ">Warning</button>
+<button className="btn btn-outline  ">Login</button>
 
       </Link>
     );
@@ -65,12 +71,12 @@ let user = false;
                 </li>
                 <hr className="" />
                 <li className="">
-                  <a href="#" className="flex items-center transform transition-colors duration-200 border-r-4 border-transparent hover:border-red-600">
+                  <Link href="#" className="flex items-center transform transition-colors duration-200 border-r-4 border-transparent hover:border-red-600">
                     <div className="mr-3 text-red-600">
                       <HiOutlineLogout/>
                     </div>
                     Logout
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
