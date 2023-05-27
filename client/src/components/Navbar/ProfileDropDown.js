@@ -4,26 +4,32 @@ import {AiOutlineSetting} from "react-icons/ai"
 import {BsPerson} from "react-icons/bs"
 import { Link } from "react-router-dom";
 import { useLogoutUserMutation } from "../../services/appApi";
+import { useSelector } from "react-redux";
 
 
 const ProfileDropdown = () => {
   const [open, setOpen] = useState(false);
-   const [loginUser] = useLoginUserMutation();
+   const user = useSelector((state) => state.user);
+   console.log(user);
+    const [logoutUser] = useLogoutUserMutation();
+ const toggleDropdown = () => {
+    setOpen(!open);
+  };
 
-   async function handleLogout(e) {
+    async function handleLogout(e) {
         e.preventDefault();
         await logoutUser(user);
+        
         window.location.replace("/");
     }
 
  
-let user = true;
    if (!user) {
     return (
       
-      <Link to="/login" class="py-1">
+      <Link to="/login" class="py-1 pr-2">
   
-<button className="btn btn-outline  ">Login</button>
+<button className="btn btn-outline ">Login</button>
 
       </Link>
     );
@@ -47,7 +53,7 @@ let user = true;
               />
             </div>
             <div className="font-semibold max-[550px]:hidden ">
-              <div className="cursor-pointer   ">Hi Mohammad Javad !</div>
+              <div className="cursor-pointer   ">{user.name}</div>
             </div>
           </div>
           {open && (
@@ -70,13 +76,13 @@ let user = true;
                   </a>
                 </li>
                 <hr className="" />
-                <li className="">
-                  <Link href="#" className="flex items-center transform transition-colors duration-200 border-r-4 border-transparent hover:border-red-600">
-                    <div className="mr-3 text-red-600">
+                <li className="ransform transition-colors duration-200 border-transparent hover:border-red-600">
+                  
+                    <div className="mr-3 flex items-center cursor-pointer  text-red-600"  onClick={handleLogout}>
                       <HiOutlineLogout/>
                     </div>
                     Logout
-                  </Link>
+                  
                 </li>
               </ul>
             </div>
