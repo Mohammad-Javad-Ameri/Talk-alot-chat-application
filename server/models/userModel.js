@@ -30,10 +30,6 @@ const userSchema = new Schema(
       type: String,
       default: "online",
     },
-    token: {
-      type: String,
-      default: ""
-    },
   },
   { minimize: false },
   { timestamps: true }
@@ -46,15 +42,7 @@ userSchema.methods.generateAuthToken = function () {
   return token;
 };
 
-const validate = (data) => {
-  const schema = joi.object().keys({
-    name: joi.string().required().label("Name"),
-    email: joi.string().email().required().label("Email"),
-    password: passwordComplexity().required().label("Password"),
-  });
-  return schema.validate(data);
-};
 
 const User = model("User", userSchema);
 
-module.exports = { User, validate };
+module.exports = { User };

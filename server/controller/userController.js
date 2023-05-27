@@ -1,5 +1,8 @@
-const {User,validate}= require("../models/userModel")
-const bcrypt = require("bcrypt")
+const {User}= require("../models/userModel")
+const bcrypt = require("bcrypt");
+const validateRegisterInput = require("../validator/register");
+const passport = require("passport");
+const jwt = require("jsonwebtoken");
 
 const getAllUsers=async(req,res)=>{
     try {
@@ -11,7 +14,7 @@ const getAllUsers=async(req,res)=>{
 }
 
 
-const getUser=async(req,res)=>{
+const getUser= async(req,res)=>{
     const {id}= req.params;
     try {
         const user = await User.findById(id);
@@ -26,13 +29,13 @@ const getUser=async(req,res)=>{
 
 
 const createUser = async(req,res)=>{
+  const { errors, isValid } = validateRegisterInput(req.body);
+
 const { name, email, password, picture } = req.body;
     try {
-        const {error}=validate(req.body);
-        if (error) {
-        return res.status(400).send({message: error.details[0].message})
-        }
-
+      if(!isValid) {
+        return res.status(400).json(errors);
+    }
     
 
         const salt = await bcrypt.genSalt(Number(process.env.SALT))
