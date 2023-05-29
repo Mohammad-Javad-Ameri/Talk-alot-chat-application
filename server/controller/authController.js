@@ -9,15 +9,13 @@ const secretKey = process.env.JWT_KEY;
 
 const login = async (req, res) => {
   try {
-    const { errors, isValid } = validateLoginInput(req.body);
     const { email, password } = req.body;
 
-    if (!isValid) {
-      return res.status(400).json(errors);
+    if (!email || !password) {
+      return res.status(400).send({ message: "Invalid email or password" });
     }
 
     const user = await User.findOne({ email });
-
     if (!user) {
       return res.status(401).send({ message: "Invalid email or password" });
     }
@@ -25,20 +23,23 @@ const login = async (req, res) => {
     if (!validPassword) {
       return res.status(401).send({ message: "Invalid email or password" });
     }
-   
-      const payload = {
-        id: user.id,
-        name: user.name
-        
-      };
-    
 
-    const token = jwt.sign(payload, secretKey);
+    //   const payload = {
+    //     id: user.id,
+    //     name: user.name
+
+    //   };
+
+    // const token = jwt.sign(payload, secretKey);
+    // user.status = "online";
+    // user.token = token;
+    // user.name = user.name;
+    // await user.save();
+
+    // res.status(200).json({ success: true, token: `Bearer ${token}` ,  });
     user.status = "online";
-    user.token = token;
     await user.save();
-
-    res.status(200).json({ success: true, token: `Bearer ${token}` });
+    res.status(200).json(user);
   } catch (error) {
     console.error(error.message);
     res.status(500).send({ message: "Internal Server Error" });
@@ -47,16 +48,13 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
-    const { _id, newMessages } = req.body;
-    const user = await User.findOne(_id);
-    console.log(user);
+    const { email, newmessage } = req.body;
+    const user = await User.findOne({ email });
+
     //req.body.token = req.body.token.filter((token) => token.token !== req.token);
     user.status = "offline";
-    user.newMessages = newMessages;
+    user.newmessage = newmessage;
     await user.save();
-    const members = await User.find();
-    //socket.broadcast.emit('new-user', members);
-
     res.status(200).send({ message: "Logged out successfully" });
   } catch (error) {
     console.error(error.message);
