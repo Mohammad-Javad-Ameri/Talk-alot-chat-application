@@ -32,7 +32,6 @@ const userSchema = new Schema(
     },
   },
   { minimize: false },
-  { timestamps: true }
 );
 
 userSchema.methods.generateAuthToken = function () {
@@ -42,7 +41,20 @@ userSchema.methods.generateAuthToken = function () {
   return token;
 };
 
+const validate = (data) => {
+  const schema = joi.object().keys({
+    name: joi.string().required().label("Name"),
+    email: joi.string().email().required().label("Email"),
+    password: passwordComplexity().required().label("Password"),
+    picture:joi.string().label("Picture"),
+    newmessage:joi.object().label("Messages"),
+    status:joi.string().label("Status")
+
+
+  });
+  return schema.validate(data);
+};
 
 const User = model("User", userSchema);
 
-module.exports = { User };
+module.exports = { User, validate };

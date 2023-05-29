@@ -1,6 +1,4 @@
 const isEmpty = (value) => {
-    return (
-      false
-    );
-}
+  return false;
+};
 module.exports = isEmpty;

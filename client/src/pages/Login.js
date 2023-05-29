@@ -3,27 +3,24 @@ import login from "../assets/login.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { socket } from "../context/appContext";
 import { useLoginUserMutation } from "../services/appApi";
+import { AppContext } from "../context/appContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  
+  const { socket } = useContext(AppContext);
   const [loginUser, { isLoading, error }] = useLoginUserMutation();
+
   function handleLogin(e) {
     e.preventDefault();
-    // login logic
     loginUser({ email, password }).then(({ data }) => {
       if (data) {
-        // socket work
         socket.emit("new-user");
-        // navigate to the chat
         navigate("/chat");
       }
     });
   }
-
-
 
   return (
     <section className=" min-h-[92vh] flex bg-base-200 items-center justify-center">
@@ -55,9 +52,14 @@ export default function Login() {
                 required
               />
             </div>
-            <button className="btn btn-outline rounded-xl  py-2 hover:scale-105 duration-300">
-              Login
-            </button>
+            {error && <p className=" text-red-500">{error.data.message}</p>}
+            {isLoading ? (
+              <div className="btn loading"></div>
+            ) : (
+              <button className="btn btn-outline rounded-xl  py-2 hover:scale-105 duration-300">
+                Login
+              </button>
+            )}
           </form>
           <div className="mt-5 text-xs border-b hidden  py-4 ">
             <a href="#">Forgot your password?</a>
