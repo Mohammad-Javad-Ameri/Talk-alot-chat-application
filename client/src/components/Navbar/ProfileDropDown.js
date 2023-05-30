@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 const ProfileDropdown = () => {
   const [open, setOpen] = useState(false);
   const user = useSelector((state) => state.user);
-  console.log(user);
+
   const [logoutUser] = useLogoutUserMutation();
   const toggleDropdown = () => {
     setOpen(!open);
@@ -77,14 +77,15 @@ const ProfileDropdown = () => {
                   </a>
                 </li>
                 <hr className="" />
-                <li className="ransform transition-colors duration-200 border-transparent hover:border-red-600">
+                <li className="flex items-center justify-between transform transition-colors duration-200 border-r-4 border-transparent hover:border-red-600">
                   <div
-                    className="mr-3 flex items-center cursor-pointer  text-red-600"
+                    className="mr-3 flex items-center cursor-pointer  "
                     onClick={handleLogout}
                   >
-                    <HiOutlineLogout />
-                  </div>
+                    <HiOutlineLogout className=" mr-3"/>
+                  
                   Logout
+                  </div>
                 </li>
               </ul>
             </div>

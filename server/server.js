@@ -72,7 +72,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("message-room", async (room, content, sender, time, date) => {
-    console.log(room);
+    
     const newMessage = await Message.create({
       content,
       from: sender,
