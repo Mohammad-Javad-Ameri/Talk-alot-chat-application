@@ -6,10 +6,10 @@ import { HiPaperAirplane } from "react-icons/hi";
 export default function MessageForm() {
   const [message, setMessage] = useState("");
   const user = useSelector((state) => state.user);
-  console.log(user);
+
   const { socket, currentRoom, setMessages, messages, privateMemberMsg } =
     useContext(AppContext);
-  console.log(messages);
+
   const messageEndRef = useRef(null);
   useEffect(() => {
     scrollToBottom();

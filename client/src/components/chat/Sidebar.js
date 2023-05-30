@@ -93,15 +93,15 @@ function Sidebar() {
           </li>
         ))}
       </ul>
-      <h2 className="mt-5 mb-3">Members</h2>
+      <h2 className="mt-5 mb-3 max-2xl:flex ">Members</h2>
       {members.map((member) => (
         <li
           key={member.id}
           className={`alert shadow-lg mb-3 cursor-pointer px-2 py-0  ${
             privateMemberMsg?._id === member?._id ? " " : ""
-          } flex justify-between`}
+          } flex justify-between `}
           onClick={() => handlePrivateMemberMsg(member)}
-          disabled={member._id === user._id}
+          
         >
           <div className="  rounded-full w-16 h-16   relative mr-2">
             <div
@@ -120,8 +120,8 @@ function Sidebar() {
             {member._id === user?._id && " (You)"}
             {member.status === "offline" && " (Offline)"}
           </div>
-          <div className=" ml-auto">
-            <span className="badge badge-lg flex items-end bg-white text-black">
+          <div className=" ">
+            <span className=" flex justify-center badge badge-lg  bg-white text-black">
               {user.newmessage[orderIds(member._id, user._id)]}
             </span>
           </div>
