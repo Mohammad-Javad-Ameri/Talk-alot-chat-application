@@ -34,7 +34,6 @@ export default function Signup() {
       signupUser({ name, email, password, picture: base64String }).then(
         ({ data }) => {
           if (data) {
-            console.log(data);
             navigate("/");
           }
         }

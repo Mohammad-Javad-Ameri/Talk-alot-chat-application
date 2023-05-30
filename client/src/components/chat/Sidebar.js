@@ -17,7 +17,7 @@ function Sidebar() {
     setPrivateMemberMsg,
     currentRoom,
   } = useContext(AppContext);
-  console.log(user);
+
   function joinRoom(room, isPublic = true) {
     if (!user) {
       return alert("Please login");
@@ -51,7 +51,7 @@ function Sidebar() {
   });
 
   function getRooms() {
-    fetch("http://localhost:5000/rooms")
+    fetch("https://talk-a-lot-backend.onrender.com/rooms")
       .then((res) => res.json())
       .then((data) => setRooms(data));
   }
@@ -76,27 +76,22 @@ function Sidebar() {
     <>
       <h2 className="mb-3">Available rooms</h2>
       <ul className="list-none">
-        {rooms.map(
-          (room, idx) => (
-            console.log(user.newmessage),
-            (
-              <li
-                key={idx}
-                onClick={() => joinRoom(room)}
-                className={`alert shadow-lg mb-3 cursor-pointer ${
-                  room === currentRoom ? "text-warning" : ""
-                } flex justify-between`}
-              >
-                {room}{" "}
-                {currentRoom !== room && (
-                  <span className=" badge badge-lg bg-white text-black ">
-                    {user.newmessage[room]}
-                  </span>
-                )}
-              </li>
-            )
-          )
-        )}
+        {rooms.map((room, idx) => (
+          <li
+            key={idx}
+            onClick={() => joinRoom(room)}
+            className={`alert shadow-lg mb-3 cursor-pointer ${
+              room === currentRoom ? "text-warning" : ""
+            } flex justify-between`}
+          >
+            {room}{" "}
+            {currentRoom !== room && (
+              <span className=" badge badge-lg bg-white text-black ">
+                {user.newmessage[room]}
+              </span>
+            )}
+          </li>
+        ))}
       </ul>
       <h2 className="mt-5 mb-3">Members</h2>
       {members.map((member) => (
