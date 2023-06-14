@@ -110,7 +110,7 @@ export default function Signup() {
               />
             </div>
             {error && (
-              <p className="alert text-red-500">{console.log(error.data)}</p>
+              <p className="alert text-red-500">{error.data.message}</p>
             )}
             {}
             <button className="btn btn-outline rounded-xl  py-2 hover:scale-105 duration-300">
