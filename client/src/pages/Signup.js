@@ -28,10 +28,7 @@ export default function Signup() {
   async function handleSignup(e) {
     e.preventDefault();
     if (!image) return alert("Please upload your profile picture");
-    if (password !== confirmPassword) {
-  return alert("Passwords do not match");
-}
-
+    
     const reader = new FileReader();
     reader.readAsDataURL(image);
     reader.onloadend = () => {
@@ -113,7 +110,7 @@ export default function Signup() {
               />
             </div>
             {error && (
-              <p className="alert text-red-500">{error.data.message}</p>
+              <p className="alert text-red-500">{console.log(error.data)}</p>
             )}
             {}
             <button className="btn btn-outline rounded-xl  py-2 hover:scale-105 duration-300">
