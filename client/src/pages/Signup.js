@@ -12,6 +12,7 @@ export default function Signup() {
   const [signupUser, { isLoading, error }] = useSignupUserMutation();
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
 
   function validateImg(e) {
@@ -27,6 +28,10 @@ export default function Signup() {
   async function handleSignup(e) {
     e.preventDefault();
     if (!image) return alert("Please upload your profile picture");
+    if (password !== confirmPassword) {
+  return alert("Passwords do not match");
+}
+
     const reader = new FileReader();
     reader.readAsDataURL(image);
     reader.onloadend = () => {
@@ -97,9 +102,20 @@ export default function Signup() {
                 value={password}
               />
             </div>
+            <div className="relative">
+              <input
+                className="p-2 rounded-xl border w-full"
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                value={confirmPassword}
+              />
+            </div>
             {error && (
               <p className="alert text-red-500">{error.data.message}</p>
             )}
+            {}
             <button className="btn btn-outline rounded-xl  py-2 hover:scale-105 duration-300">
               Register
             </button>
