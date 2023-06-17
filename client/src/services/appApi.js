@@ -4,7 +4,6 @@ const appApi = createApi({
   reducerPath: "appApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://talk-a-lot-backend.onrender.com",
-    credentials: "true",
   }),
 
   endpoints: (builder) => ({
