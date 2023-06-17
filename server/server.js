@@ -28,7 +28,6 @@ const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
   cors: {
     origin: "https://talk-alot-chat-application.vercel.app",
-    methods: ["GET", "POST"],
     credentials: true,
   },
 });
