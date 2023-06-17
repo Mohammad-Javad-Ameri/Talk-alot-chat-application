@@ -17,12 +17,9 @@ const app = express();
 app.use(
   express.urlencoded({ extended: true }),
   express.json(),
-  cors({
-    origin: "*",
-    methods: ["GET", "POST"],
-    credentials: true,
-  })
+  
 );
+app.use(cors());
 
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
