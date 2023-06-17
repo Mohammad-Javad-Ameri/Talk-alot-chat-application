@@ -11,6 +11,7 @@ const appApi = createApi({
       query: (user) => ({
         url: "/",
         method: "POST",
+        mode: 'no-cors',
         body: user,
       }),
     }),
