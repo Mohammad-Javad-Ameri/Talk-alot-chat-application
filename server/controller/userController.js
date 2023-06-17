@@ -36,6 +36,7 @@ const createUser = async (req, res) => {
     const hashPassword = await bcrypt.hash(password, salt);
     await new User({ name, email, password: hashPassword, picture }).save();
     const user = await User.findOne({ email });
+    res.header('Access-Control-Allow-Origin', '*');
 
     res.status(201).send(user);
   } catch (error) {
