@@ -18,7 +18,8 @@ app.use(
   express.urlencoded({ extended: true }),
   express.json(),
   cors({
-    origin: "https://talk-a-lot-chat-aplication.onrender.com",
+    origin: "*",
+    methods: ["GET", "POST"],
     credentials: true,
   })
 );
@@ -26,7 +27,7 @@ app.use(
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "https://talk-a-lot-chat-aplication.onrender.com",
+    origin: "*",
     methods: ["GET", "POST"],
     credentials: true,
   },
